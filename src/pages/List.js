@@ -122,7 +122,7 @@ class List extends React.Component {
       <div className="container home">
         <div className="card border-primary mb-3">
           <div className="card-header">
-            <h4>List Name</h4>
+            <h4>{this.state.list.name}</h4>
             <div className="add-list-input">
               <input
                 className="form-control form-control-lg"
