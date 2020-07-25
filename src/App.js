@@ -4,19 +4,24 @@ import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import { getUser } from "./api/calls";
+import { setUser } from "./stateManagement/actions";
+import { connect } from "react-redux";
 
-class App extends Component {
-  constructor() {
-    super();
-  }
+const App = (props) => {
+  getUser().then((user) => {
+    // console.log(user);
+    props.setUser(user);
+  });
+  return (
+    <div>
+      <NavBar />
+    </div>
+  );
+};
 
-  render() {
-    return (
-      <div>
-        <NavBar />
-      </div>
-    );
-  }
-}
+const mapDispatchToProps = {
+  setUser: setUser,
+};
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);

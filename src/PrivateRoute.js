@@ -1,29 +1,31 @@
-// import React from "react";
-// import { Route, Redirect } from "react-router-dom";
-// import getUser from "./utils";
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
-// class PrivateRoute extends React.Component {
-//   async componentDidMount() {
-//     let user = await getUser();
-//     console.log(user);
-//   }
+// const PrivateRoute = (props) => {
+//   console.log(props.user);
+//   return props.user == null ? (
+//     <Redirect to="/login" />
+//   ) : (
+//     <Route component={props.component} path={props.path} />
+//   );
+// };
 
-//   render() {
-//     return (
-//       <Route
-//         {...rest}
-//         render={(props) =>
-//           user != null ? (
-//             <Component {...props} user={user} />
-//           ) : (
-//             <Redirect to="/signup" />
-//           )
-//         }
-//       />
-//     );
-//   }
-// }
+const PrivateRoute = ({ component: Component, user: user, ...rest }) => {
+  return (
+    // Show the component only when the user is logged in
+    // Otherwise, redirect the user to /signin page
+    <Route
+      {...rest}
+      render={(props) =>
+        user == null ? <Redirect to="/signup" /> : <Component {...props} />
+      }
+    />
+  );
+};
 
-// const PrivateRoute = ({ component: Component, ...rest }) => {};
+const mapStateToProps = (state) => ({
+  user: state.user.user,
+});
 
-// export default PrivateRoute;
+export default connect(mapStateToProps)(PrivateRoute);

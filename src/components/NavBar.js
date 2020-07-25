@@ -1,10 +1,10 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import getUser from "../utils";
+import { connect } from "react-redux";
 
 function NavBar(props) {
   let p = useLocation().pathname;
-  let user = getUser();
+  let user = props.user;
   return (
     <nav className="navbar navbar-dark bg-primary fixed-top">
       <Link className="navbar-brand" to="/">
@@ -23,4 +23,8 @@ function NavBar(props) {
   );
 }
 
-export default NavBar;
+const mapStateToProps = (state) => ({
+  user: state.user.user,
+});
+
+export default connect(mapStateToProps)(NavBar);
